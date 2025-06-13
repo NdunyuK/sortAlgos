@@ -16,27 +16,21 @@ function bubble(arr){
 
 }
 
-// console.log(bubble([8, 20, -2, 4, -6]))
-// console.log(bubble([20, 8, 4, -2, -6]))
+console.log(bubble([8, 20, -2, 4, -6]))
+console.log(bubble([20, 8, 4, -2, -6]))
 
 //Big-O - O(n^2)
 
 
 function insertion(arr){
-    console.log("in isnsertion")
     for(let i=1; i < arr.length; i++){
-        console.log("in top loop")
-
         let numberToInsert = arr[i]
         let j = i-1
         while(j >= 0 && arr[j] > numberToInsert){
-            console.log("in internal loop", arr[j], numberToInsert)
             arr[j + 1] = arr[j]
-            console.log("arr", arr)
             j = j-1
 
         }
-        console.log(j)
         arr[j+1] = numberToInsert
 
         
@@ -45,4 +39,60 @@ function insertion(arr){
 }
 
 console.log(insertion([20, 8, -2, 4, -6]))
+console.log(insertion([ -6, -2, 4, 8, 20 ]))
+console.log(insertion([ 20, 8, 4, -2, -6 ]))
 
+//Big-O - O(n^2)
+
+
+function quick(arr) {
+    if(arr.length<2){
+        return arr
+    }
+    console.log(arr.length - 1)
+    let pivot = arr[arr.length - 1]
+    let leftArr =[]
+    let rightArr = []
+    for (let i=0; i< arr.length - 1; i++){
+        if (arr[i] < pivot){
+            leftArr.push(arr[i])
+        } else {
+            rightArr.push(arr[i])
+        }
+    }
+    return [...quick(leftArr), pivot, ...quick(rightArr)]
+
+}
+
+console.log(quick([20, 8, -2, 4, -6]))
+
+// Worst case - O(n^2)
+// Avg case - O(nlogn)
+
+
+function mergeSort(arr) {
+    if(arr.length < 2){
+        return arr
+    }
+    let midpoint = Math.floor(arr.length/2)
+    let left = arr.slice(0, midpoint)
+    let right = arr.slice(midpoint)
+    return merge(mergeSort(left), mergeSort(right))
+}
+
+function merge(left, right){
+    const sortedArr = []
+    while(left.length && right.length) {
+        if(left[0] <= right[0]){
+            sortedArr.push(left.shift())
+        } else {
+            sortedArr.push(right.shift())
+        }
+    }
+    return [...sortedArr, ...left, ...right]
+
+}
+
+console.log(mergeSort([20, 8, -2, 4, -6]))
+
+//Big-O - O(nlogn)
